@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CarKos (Cari Kos Tanpa Zonk) - Temukan kos idealmu dengan mudah dan transparan. Lihat video tour wajib, status kamar real-time, dan ulasan terverifikasi.">
+  <title>CarKos - Cari Kos Tanpa Zonk | Platform Pencarian Kos Modern & Transparan</title>
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- --- HEADER / NAVIGATION --- -->
+    <header class="header" id="mainHeader">
+      <div class="container">
+        
+        <!-- Logo -->
+        <a href="#" class="logo" id="logoLink">
+          <div class="logo-icon">
+            <i data-lucide="home"></i>
+          </div>
+          Car<span>Kos</span>
+        </a>
+
+        <!-- Navigation Menu -->
+        <nav class="nav-menu">
+          <a href="#" class="nav-link active" id="navHome">Beranda</a>
+          <a href="#about" class="nav-link" id="navAbout">Tentang Kami</a>
+          <a href="#help" class="nav-link" id="navHelp">Bantuan</a>
+        </nav>
+
+        <!-- User Controls -->
+        <div class="user-controls" id="userControls">
+          <!-- Populated dynamically via JS: Guest buttons or User Profile dropdown -->
+          <button class="btn btn-outline btn-sm" id="btnShowLogin">Masuk / Daftar</button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- --- MAIN VIEW SECTION WRAPPER --- -->
+    <main class="main-content">
+
+      <!-- --- EXPLORER VIEW (LANDING & SEARCH) --- -->
+      <section class="view-section active" id="exploreView">
+        
+        <!-- Hero Section -->
+        <div class="hero">
+          <div class="container">
+            <div class="hero-badge">
+              <i data-lucide="check-circle"></i>
+              <span>Anti Zonk • Spesialis Kos Lampung</span>
+            </div>
+            <h1 class="hero-title">Temukan Kos Lampung Idealmu dengan Mudah</h1>
+            <p class="hero-subtitle">Cari kos di sekitar UNILA, ITERA, UIN RIL, dan UBL dengan informasi transparan dan video tour wajib anti-zonk.</p>
+            
+            <!-- Dynamic Search Hub -->
+            <div class="search-hub">
+              <div class="search-input-group">
+                <i data-lucide="search"></i>
+                <div>
+                  <label for="searchQuery">Lokasi / Nama Kos</label>
+                  <input type="text" id="searchQuery" placeholder="Cari area, jalan, atau nama kos...">
+                </div>
+              </div>
+
+              <div class="search-input-group">
+                <i data-lucide="graduation-cap"></i>
+                <div>
+                  <label for="campusSelect">Kampus Terdekat</label>
+                  <select id="campusSelect">
+                    <option value="">Semua Kampus</option>
+                    <option value="Universitas Lampung (UNILA)">Universitas Lampung (UNILA)</option>
+                    <option value="Institut Teknologi Sumatera (ITERA)">Institut Teknologi Sumatera (ITERA)</option>
+                    <option value="UIN Raden Intan Lampung (UIN RIL)">UIN Raden Intan Lampung (UIN RIL)</option>
+                    <option value="Universitas Bandar Lampung (UBL)">Universitas Bandar Lampung (UBL)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button class="btn btn-primary btn-search" id="btnSearchSubmit">
+                <i data-lucide="search"></i>
+                <span>Cari Kos</span>
+              </button>
+            </div>
+
+            <!-- Quick Campus Pills -->
+            <div class="campus-targets">
+              <span class="campus-targets-label">Rekomendasi Kampus:</span>
+              <button class="campus-pill" data-campus="Universitas Lampung (UNILA)">UNILA Rajabasa</button>
+              <button class="campus-pill" data-campus="Institut Teknologi Sumatera (ITERA)">ITERA Sukarame</button>
+              <button class="campus-pill" data-campus="UIN Raden Intan Lampung (UIN RIL)">UIN RIL Sukarame</button>
+              <button class="campus-pill" data-campus="Universitas Bandar Lampung (UBL)">UBL Kedaton</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Main Discovery Section -->
+        <div class="container" style="margin-top: 40px;">
+          <div class="explorer-layout">
+            
+            <!-- Sidebar Filters -->
+            <aside class="filter-sidebar">
+              <div class="filter-header">
+                <h3>Filter</h3>
+                <button class="btn-reset-filter" id="btnResetFilters">Reset Semua</button>
+              </div>
+
+              <!-- Price Filter -->
+              <div class="filter-group">
+                <h4 class="filter-title">Rentang Harga (Per Bulan)</h4>
+                <div class="price-inputs">
+                  <div class="price-box">
+                    <label for="priceMin">Minimum</label>
+                    <div class="input-wrap">
+                      <span>Rp</span>
+                      <input type="number" id="priceMin" placeholder="0" min="0">
+                    </div>
+                  </div>
+                  <div class="price-box">
+                    <label for="priceMax">Maksimum</label>
+                    <div class="input-wrap">
+                      <span>Rp</span>
+                      <input type="number" id="priceMax" placeholder="5Jt+" min="0">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gender Filter -->
+              <div class="filter-group">
+                <h4 class="filter-title">Jenis Kos</h4>
+                <div class="gender-chips">
+                  <label class="gender-chip-label">
+                    <input type="checkbox" name="genderFilter" value="Putra">
+                    <div class="gender-chip">Putra</div>
+                  </label>
+                  <label class="gender-chip-label">
+                    <input type="checkbox" name="genderFilter" value="Putri">
+                    <div class="gender-chip">Putri</div>
+                  </label>
+                  <label class="gender-chip-label">
+                    <input type="checkbox" name="genderFilter" value="Campur">
+                    <div class="gender-chip">Campur</div>
+                  </label>
+                  <label class="gender-chip-label">
+                    <input type="checkbox" name="genderFilter" value="Pasutri">
+                    <div class="gender-chip">Pasutri</div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Room Availability -->
+              <div class="filter-group">
+                <h4 class="filter-title">Ketersediaan Kamar</h4>
+                <div class="facility-checkboxes">
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="statusFilter" value="Tersedia">
+                    <span>Tersedia</span>
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="statusFilter" value="Hampir Penuh">
+                    <span>Hampir Penuh</span>
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" name="statusFilter" value="Penuh">
+                    <span>Penuh</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Facilities Filter -->
+              <div class="filter-group">
+                <h4 class="filter-title">Fasilitas</h4>
+                <div class="facility-checkboxes" id="facilitiesCheckboxContainer">
+                  <!-- Generated dynamically via JS -->
+                </div>
+              </div>
+
+            </aside>
+
+            <!-- Product Grid -->
+            <div class="listings-area">
+              
+              <div class="listings-header">
+                <div class="listings-count">
+                  Menampilkan <span id="resultsCount">0</span> Kos Terverifikasi
+                </div>
+                <div class="listings-sort">
+                  <select id="sortSelect">
+                    <option value="relevance">Rekomendasi</option>
+                    <option value="price-asc">Harga Terendah</option>
+                    <option value="price-desc">Harga Tertinggi</option>
+                    <option value="rating-desc">Rating Tertinggi</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="listings-grid" id="listingsGrid">
+                <!-- Generated dynamically via JS -->
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- --- KOST DETAIL VIEW --- -->
+      <section class="view-section" id="detailView">
+        <div class="container">
+          
+          <!-- Back Bar -->
+          <div class="detail-back-bar">
+            <button class="btn btn-outline btn-sm btn-back-home" id="btnBackToHome">
+              <i data-lucide="arrow-left"></i> Kembali ke Pencarian
+            </button>
+          </div>
+
+          <div id="detailViewContent">
+            <!-- Populated dynamically via JS -->
+          </div>
+
+        </div>
+      </section>
+
+      <!-- --- OWNER DASHBOARD VIEW --- -->
+      <section class="view-section" id="dashboardView">
+        <div class="container">
+          
+          <div class="dashboard-layout">
+            
+            <!-- Dashboard Header -->
+            <div class="dashboard-panel-header">
+              <div>
+                <h2>Dashboard Pemilik Kos</h2>
+                <p style="color: #64748b; font-size: 14px; margin-top: 4px;">Kelola listing kos Anda, periksa statistik kunjungan, dan update status ketersediaan.</p>
+              </div>
+              <button class="btn btn-primary" id="btnAddNewKos">
+                <i data-lucide="plus"></i> Tambah Kos Baru
+              </button>
+            </div>
+
+            <!-- Stats Metrics -->
+            <div class="stats-metrics-grid">
+              <div class="metric-card">
+                <div class="metric-icon">
+                  <i data-lucide="home"></i>
+                </div>
+                <div class="metric-info">
+                  <h4>Total Listing</h4>
+                  <div class="metric-val" id="metricTotalListings">0</div>
+                </div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-icon success">
+                  <i data-lucide="eye"></i>
+                </div>
+                <div class="metric-info">
+                  <h4>Total Pengunjung</h4>
+                  <div class="metric-val" id="metricTotalViews">0</div>
+                </div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-icon warning">
+                  <i data-lucide="star"></i>
+                </div>
+                <div class="metric-info">
+                  <h4>Rating Rata-rata</h4>
+                  <div class="metric-val" id="metricAvgRating">0.0</div>
+                </div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-icon">
+                  <i data-lucide="dollar-sign"></i>
+                </div>
+                <div class="metric-info">
+                  <h4>Estimasi Pendapatan</h4>
+                  <div class="metric-val" id="metricRevenue">Rp 0</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Analytical Grid -->
+            <div class="dashboard-analytics-grid">
+              <!-- Visitor Chart -->
+              <div class="dashboard-panel">
+                <div class="dashboard-panel-header">
+                  <h3 class="dashboard-panel-title">Statistik Pengunjung Listing (7 Hari Terakhir)</h3>
+                  <span style="font-size: 13px; font-weight: 600; color: var(--primary);">Real-time</span>
+                </div>
+                <div class="analytics-chart-container" id="chartContainer">
+                  <!-- Custom SVG Chart generated via JS -->
+                </div>
+              </div>
+
+              <!-- Owner Tips -->
+              <div class="dashboard-panel">
+                <div class="dashboard-panel-header">
+                  <h3 class="dashboard-panel-title">Panduan Pemilik Kos</h3>
+                </div>
+                <div class="info-bullet-list">
+                  <div class="bullet-item">
+                    <span class="bullet-label"><i data-lucide="check-circle"></i> Video Tour Wajib</span>
+                    <span class="bullet-val">Aktif</span>
+                  </div>
+                  <div class="bullet-item">
+                    <span class="bullet-label"><i data-lucide="shield"></i> Status Verifikasi</span>
+                    <span class="bullet-val" style="color: var(--success);">Terverifikasi</span>
+                  </div>
+                  <div class="bullet-item">
+                    <span class="bullet-label"><i data-lucide="activity"></i> Respon WhatsApp</span>
+                    <span class="bullet-val">&lt; 15 Menit</span>
+                  </div>
+                </div>
+                <div style="margin-top: 20px; font-size: 13px; color: #64748b; background-color: var(--light); padding: 12px; border-radius: var(--radius-sm);">
+                  <strong>Tips CarKos:</strong> Listing dengan status ketersediaan terupdate (real-time) mendapatkan eksposur 2x lebih besar kepada calon penyewa.
+                </div>
+              </div>
+            </div>
+
+            <!-- Listing Management Table -->
+            <div class="dashboard-panel">
+              <div class="dashboard-panel-header">
+                <h3 class="dashboard-panel-title">Kelola Kos Anda</h3>
+              </div>
+              <div class="listings-table-container">
+                <table class="listings-table">
+                  <thead>
+                    <tr>
+                      <th>Kos</th>
+                      <th>Harga / Bulan</th>
+                      <th>Status Kamar</th>
+                      <th>Pengunjung</th>
+                      <th>Rating</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ownerListingsTableBody">
+                    <!-- Populated dynamically via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- --- FOOTER SECTION --- -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          
+          <div class="footer-brand">
+            <h3>Car<span>Kos</span></h3>
+            <p>CarKos (Cari Kos Tanpa Zonk) adalah platform terkemuka di Indonesia yang menyajikan informasi kos secara transparan, lengkap, dengan video tour wajib untuk kenyamanan penyewa.</p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Navigasi</h4>
+            <ul class="footer-links">
+              <li><a href="#" class="footer-link">Cari Kos</a></li>
+              <li><a href="#dashboard" class="footer-link">Dashboard Pemilik</a></li>
+              <li><a href="#about" class="footer-link">Tentang Kami</a></li>
+              <li><a href="#help" class="footer-link">Bantuan & FAQ</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Bagi Pemilik Kos</h4>
+            <ul class="footer-links">
+              <li><a href="#" class="footer-link">Cara Mendaftarkan Kos</a></li>
+              <li><a href="#" class="footer-link">Fitur Premium</a></li>
+              <li><a href="#" class="footer-link">Komunitas Pemilik Kos</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-subscribe">
+            <h4>Langganan Info Kos</h4>
+            <p>Dapatkan update kos terbaru di area sekitarmu langsung ke inbox.</p>
+            <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Terima kasih telah berlangganan!');">
+              <input type="email" placeholder="Email kamu" required>
+              <button class="btn btn-primary btn-sm" type="submit">Ikuti</button>
+            </form>
+          </div>
+
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 CarKos Indonesia. All Rights Reserved. Dibuat dengan integritas tinggi.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i data-lucide="instagram"></i></a>
+            <a href="#" class="social-link"><i data-lucide="facebook"></i></a>
+            <a href="#" class="social-link"><i data-lucide="twitter"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+    <!-- --- AUTH MODAL (LOGIN & REGISTER) --- -->
+    <div class="modal" id="authModal">
+      <div class="modal-content">
+        
+        <div class="modal-tabs">
+          <div class="modal-tab active" id="tabLoginBtn" onclick="switchAuthTab('login')">Masuk</div>
+          <div class="modal-tab" id="tabRegisterBtn" onclick="switchAuthTab('register')">Daftar</div>
+        </div>
+
+        <!-- Login Form Panel -->
+        <div class="modal-body" id="loginFormPanel">
+          <form id="loginForm" class="write-review-form">
+            <div class="form-group">
+              <label for="loginEmail">Email</label>
+              <input type="email" id="loginEmail" class="form-control" placeholder="nama@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password" required>
+            </div>
+            <div style="text-align: right; margin-top: -10px;">
+              <a href="#" style="font-size: 13px; color: var(--primary); font-weight: 500;">Lupa Password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">Masuk Ke Akun</button>
+          </form>
+          <div style="margin-top: 16px; font-size: 12px; color: #64748b; background-color: var(--light); padding: 10px; border-radius: var(--radius-sm);">
+            <strong>Akun Demo Terdaftar:</strong><br>
+            - Pemilik Kos: <code>owner@carkos.com</code> / <code>password123</code><br>
+            - Pencari Kos: <code>renter@carkos.com</code> / <code>password123</code>
+          </div>
+        </div>
+
+        <!-- Register Form Panel -->
+        <div class="modal-body" id="registerFormPanel" style="display: none;">
+          <form id="registerForm" class="write-review-form">
+            <div class="form-group">
+              <label for="registerNama">Nama Lengkap</label>
+              <input type="text" id="registerNama" class="form-control" placeholder="Nama Lengkap Anda" required>
+            </div>
+            <div class="form-group">
+              <label for="registerEmail">Email</label>
+              <input type="email" id="registerEmail" class="form-control" placeholder="nama@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="registerPassword">Password</label>
+              <input type="password" id="registerPassword" class="form-control" placeholder="Buat password minimal 6 karakter" minlength="6" required>
+            </div>
+            <div class="form-group">
+              <label for="registerRole">Daftar Sebagai</label>
+              <select id="registerRole" class="form-control">
+                <option value="pengguna">Pencari Kos (Pengguna)</option>
+                <option value="pemilik">Pemilik Kos</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">Daftar Akun Baru</button>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-outline btn-sm" id="btnCloseAuthModal">Batal</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- --- ADD / EDIT KOS FORM MODAL --- -->
+    <div class="modal" id="kosFormModal">
+      <div class="modal-content wide">
+        <div class="modal-header">
+          <h3 id="kosFormModalTitle">Tambah Kos Baru</h3>
+          <button class="btn-close-modal" id="btnCloseKosFormModal"><i data-lucide="x"></i></button>
+        </div>
+        
+        <form id="kosForm">
+          <input type="hidden" id="formKostId">
+          
+          <div class="modal-body">
+            <div class="form-grid">
+              
+              <!-- Nama Kost -->
+              <div class="form-group form-grid-full">
+                <label for="formNamaKost">Nama Kost <span style="color: var(--danger)">*</span></label>
+                <input type="text" id="formNamaKost" class="form-control" placeholder="Contoh: Kost Orange Premium UI Depok" required>
+              </div>
+
+              <!-- Deskripsi -->
+              <div class="form-group form-grid-full">
+                <label for="formDeskripsi">Deskripsi Lengkap <span style="color: var(--danger)">*</span></label>
+                <textarea id="formDeskripsi" class="form-control" style="height: 100px; resize: vertical;" placeholder="Tulis deskripsi detail kos, kelebihan, jarak, dll..." required></textarea>
+              </div>
+
+              <!-- Alamat -->
+              <div class="form-group form-grid-full">
+                <label for="formAlamat">Alamat Lengkap <span style="color: var(--danger)">*</span></label>
+                <input type="text" id="formAlamat" class="form-control" placeholder="Contoh: Jl. Margonda Raya No. 100, Pondok Cina" required>
+              </div>
+
+              <!-- Harga -->
+              <div class="form-group">
+                <label for="formHarga">Harga Sewa / Bulan (Rp) <span style="color: var(--danger)">*</span></label>
+                <input type="number" id="formHarga" class="form-control" placeholder="Contoh: 1500000" min="10000" required>
+              </div>
+
+              <!-- WhatsApp -->
+              <div class="form-group">
+                <label for="formWhatsapp">Nomor WhatsApp Pemilik (Format: 62...) <span style="color: var(--danger)">*</span></label>
+                <input type="text" id="formWhatsapp" class="form-control" placeholder="Contoh: 6281234567890" required>
+              </div>
+
+              <!-- Jenis Kost -->
+              <div class="form-group">
+                <label for="formJenisKost">Jenis Kost <span style="color: var(--danger)">*</span></label>
+                <select id="formJenisKost" class="form-control" required>
+                  <option value="Putra">Putra</option>
+                  <option value="Putri">Putri</option>
+                  <option value="Campur">Campur</option>
+                  <option value="Pasutri">Pasutri</option>
+                </select>
+              </div>
+
+              <!-- Status Kamar -->
+              <div class="form-group">
+                <label for="formStatusKamar">Status Kamar <span style="color: var(--danger)">*</span></label>
+                <select id="formStatusKamar" class="form-control" required>
+                  <option value="Tersedia">Tersedia</option>
+                  <option value="Hampir Penuh">Hampir Penuh</option>
+                  <option value="Penuh">Penuh</option>
+                </select>
+              </div>
+
+              <!-- Nearest Campus -->
+              <div class="form-group">
+                <label for="formNearestCampus">Kampus Terdekat <span style="color: var(--danger)">*</span></label>
+                <select id="formNearestCampus" class="form-control" required>
+                  <option value="Universitas Lampung (UNILA)">Universitas Lampung (UNILA)</option>
+                  <option value="Institut Teknologi Sumatera (ITERA)">Institut Teknologi Sumatera (ITERA)</option>
+                  <option value="UIN Raden Intan Lampung (UIN RIL)">UIN Raden Intan Lampung (UIN RIL)</option>
+                  <option value="Universitas Bandar Lampung (UBL)">Universitas Bandar Lampung (UBL)</option>
+                </select>
+              </div>
+
+              <!-- Video Tour URL -->
+              <div class="form-group">
+                <label for="formVideoUrl">Embed Video Tour URL (Youtube) <span style="color: var(--danger)">*</span></label>
+                <input type="url" id="formVideoUrl" class="form-control" placeholder="https://www.youtube.com/embed/..." required>
+              </div>
+
+              <!-- Latitude -->
+              <div class="form-group">
+                <label for="formLatitude">Latitude</label>
+                <input type="number" id="formLatitude" class="form-control" step="any" placeholder="-6.3689">
+              </div>
+
+              <!-- Longitude -->
+              <div class="form-group">
+                <label for="formLongitude">Longitude</label>
+                <input type="number" id="formLongitude" class="form-control" step="any" placeholder="106.8326">
+              </div>
+
+              <!-- Photo Gallery Input Mock -->
+              <div class="form-group form-grid-full">
+                <label>Foto Kos (URL Gambar - Pisahkan dengan koma jika lebih dari satu)</label>
+                <input type="text" id="formImages" class="form-control" placeholder="Contoh: https://images.unsplash.com/... , https://images.unsplash.com/...">
+                <span style="font-size: 11px; color: #64748b; margin-top: 4px;">Kosongkan jika ingin menggunakan gambar default modern dari sistem.</span>
+              </div>
+
+              <!-- Rules list editor -->
+              <div class="form-group form-grid-full">
+                <label>Peraturan Kos</label>
+                <div id="rulesInputsContainer">
+                  <!-- Generated via JS -->
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" id="btnAddRuleInput" style="margin-top: 8px;">
+                  <i data-lucide="plus"></i> Tambah Peraturan
+                </button>
+              </div>
+
+              <!-- Facilities checkboxes selection -->
+              <div class="form-group form-grid-full">
+                <label>Pilih Fasilitas</label>
+                <div class="form-facilities-selector" id="formFacilitiesCheckboxes">
+                  <!-- Generated dynamically via JS -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="btnCancelKosForm">Batal</button>
+            <button type="submit" class="btn btn-primary" id="btnSubmitKosForm">Simpan Listing</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- App Main Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
